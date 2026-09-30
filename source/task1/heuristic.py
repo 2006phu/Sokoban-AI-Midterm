@@ -1,19 +1,12 @@
 # heuristic.py
-# Thanh vien A phu trach
-# Ham heuristic cho A* (KHONG dung Manhattan/Euclidean)
-#
-# Phuong phap: BFS Distance + Optimal Assignment
-# - Precompute BFS distance tu moi goal den tat ca cac o (1 lan duy nhat)
-# - Hungarian Algorithm (scipy) hoac greedy matching
-# - Deadlock detection de cat tia som
+# Tinh toan heuristic bang BFS ket hop Hungarian Algorithm
 
 from collections import deque
 
 
 class HeuristicCalculator:
     """
-    Tinh heuristic voi BFS distance duoc precompute.
-    Tao 1 lan, dung lai nhieu lan -> nhanh hon gap nhieu.
+    Tinh heuristic toi uu su dung BFS distance precomputed va Hungarian Algorithm.
     """
 
     def __init__(self, game_map):

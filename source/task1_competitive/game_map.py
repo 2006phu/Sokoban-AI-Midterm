@@ -1,4 +1,4 @@
-# game_map.py cho task1_competitive
+# game_map.py
 # Quan ly ban do thi dau 2 agent
 
 from collections import deque

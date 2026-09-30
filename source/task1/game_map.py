@@ -1,6 +1,5 @@
 # game_map.py
-# Thanh vien A phu trach
-# Class quan ly ban do Sokoban
+# Quan ly va xu ly ban do Sokoban
 
 from collections import deque
 
@@ -84,13 +83,7 @@ class GameMap:
 
     def _compute_floor(self):
         """
-        Tim tat ca o thuoc vung choi (ben trong tuong).
-        Dung BFS tu vi tri agent de xac dinh cac o co the di den.
-
-        Thuat toan BFS (theo slide trang 6):
-        - frontier = FIFO queue (deque)
-        - explored = empty set
-        - Loang ra 4 huong, chi di vao o khong phai tuong
+        Xac dinh tat ca cac o san co the di toi ben trong tuong bang BFS loang.
         """
         if self.agent_pos is None:
             return

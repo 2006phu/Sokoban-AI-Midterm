@@ -1,7 +1,5 @@
 # heuristic_verification.py
-# Thanh vien B phu trach - Req 4
 # Kiem chung tinh Admissible va Consistent cua Heuristic bang thuc nghiem
-# Tuan thu OOP model, tai su dung GameMap, State, Solver, HeuristicCalculator
 
 import os
 import sys
@@ -53,7 +51,7 @@ def verify_heuristic(map_file):
         return
 
     print("=" * 80)
-    print("KIEM CHUNG TINH CHAT HEURISTIC (Requirement 4)")
+    print("KIEM CHUNG TINH CHAT HEURISTIC")
     print("Heuristic: BFS Shortest Distance + Hungarian Algorithm (Linear Sum Assignment)")
     print(f"Ban do kiem tra: {map_file}")
     print("=" * 80)
@@ -141,7 +139,7 @@ def verify_heuristic(map_file):
     # TONG KET DANH GIA LY THUYET VA THUC NGHIEM
     # --------------------------------------------------------
     print("\n" + "=" * 80)
-    print("TONG KET LY THUYET & THUC NGHIEM CHO BAO CAO REQ 4:")
+    print("TONG KET LY THUYET & THUC NGHIEM:")
     print("1. Tinh Admissible: BFS bo qua cac chuong ngai vat hop khac va khong tinh den")
     print("   chi phi xoay tro cua Agent, dong thoi Hungarian cho ghep cap voi tong quang")
     print("   duong nho nhat, do do h(n) luon <= h*(n) -> Heuristic admissible.")

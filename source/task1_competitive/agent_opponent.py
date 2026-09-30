@@ -1,7 +1,6 @@
 # agent_opponent.py
-# Thuoc ve Agent 2 (Doi thu thi dau - Req 8)
-#
-# Thuat toan: Greedy Best-First Search doc lap voi Chien Luoc Cuop Hop (Req 6)
+# Agent 2 (Doi thu thi dau) trong che do competitive
+# Thuat toan: Greedy Best-First Search ket hop chien luoc day hop va cuop hop
 
 from collections import deque
 import time
@@ -17,7 +16,6 @@ DIRECTIONS = {
 class Agent:
     """
     Agent 2 (Doi thu) thi dau trong che do competitive.
-    Tach biet file de thi dau giua cac nhom (Req 8).
     Bao gom tinh nang day hop va cuop hop cua doi thu.
     """
 
@@ -42,7 +40,7 @@ class Agent:
         opp_boxes_on_goal = [b for b in boxes if b in goals and ownership.get(b) == opp_id]
 
         # ----------------------------------------------------
-        # CHIEN LUOC 1: CUOP HOP CUA DOI THU (Req 6)
+        # CHIEN LUOC 1: CUOP HOP CUA DOI THU
         # ----------------------------------------------------
         if opp_boxes_on_goal:
             min_opp_dist = min(abs(my_pos[0] - b[0]) + abs(my_pos[1] - b[1]) for b in opp_boxes_on_goal)

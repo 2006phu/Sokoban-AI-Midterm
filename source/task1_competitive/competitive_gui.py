@@ -1,6 +1,5 @@
 # competitive_gui.py
-# Thanh vien C phu trach (Req 8)
-# GUI cho che do thi dau 2 agent bang pygame
+# Giao dien thi dau 2 agent bang Pygame
 
 import pygame
 import sys
@@ -46,7 +45,7 @@ AUTO_STEP_DELAY   = 450  # ms moi buoc tu dong
 
 class CompetitiveGUI:
     """
-    Giao dien thi dau 2 agent bang Pygame (Req 8).
+    Giao dien thi dau 2 agent bang Pygame.
     """
 
     def __init__(self, game_map, agent1, agent2, step_limit=50):
@@ -83,7 +82,7 @@ class CompetitiveGUI:
         self.offset_y = 0
 
         pygame.init()
-        pygame.display.set_caption("Sokoban — 2-Agent Competitive Mode (Req 8)")
+        pygame.display.set_caption("Sokoban — 2-Agent Competitive Mode")
         self.screen = pygame.display.set_mode((self.window_width, self.window_height))
         self.clock = pygame.time.Clock()
 
@@ -225,7 +224,7 @@ class CompetitiveGUI:
                         pygame.draw.circle(self.screen, COLOR_GOAL, center, CELL_SIZE // 5)
                         pygame.draw.circle(self.screen, (255, 200, 220), (center[0] - 2, center[1] - 2), 3)
 
-        # 2. Ve cac Hop (Boxes) voi mau rieng theo quyen so huu (Req 8)
+        # 2. Ve cac Hop (Boxes) voi mau rieng theo quyen so huu
         for box in self.state.boxes:
             bx = self.offset_x + box[1] * CELL_SIZE
             by = self.offset_y + box[0] * CELL_SIZE

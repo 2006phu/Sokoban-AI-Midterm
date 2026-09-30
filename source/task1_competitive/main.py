@@ -1,5 +1,5 @@
-# main.py cho task1_competitive
-# Entry point cho che do thi dau 2 agent (Req 6, 7, 8)
+# main.py
+# Diem khoi chay chinh (Entry point) cho che do thi dau 2 agent
 
 import os
 import sys
@@ -35,8 +35,8 @@ def main():
     print(f"So luong hop (boxes): {len(game_map.boxes)}")
     print(f"So luong dich (goals): {len(game_map.goals)}")
 
-    # Nhap so buoc n (Req 6)
-    print("\nTheo yeu cau de bai, 2 agent se thi dau trong n buoc.")
+    # Nhap so buoc thi dau n
+    print("\nHai agent se thi dau trong n buoc.")
     step_input = input("Nhap so buoc thi dau n (Mac dinh: 60): ").strip()
     try:
         step_limit = int(step_input) if step_input else 60

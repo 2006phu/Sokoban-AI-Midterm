@@ -1,14 +1,5 @@
 # main.py
-# Thanh vien A phu trach
-# Chuong trinh chinh - entry point cua Sokoban
-#
-# Flow:
-# 1. Doc ban do (GameMap)
-# 2. Tao trang thai ban dau (State)
-# 3. Hoi user chon thuat toan (UCS / A* / View mode)
-# 4. Chay solver
-# 5. Tao chuoi states tu loi giai
-# 6. Khoi chay GUI pygame
+# Diem khoi chay chinh (Entry point) cua game Sokoban
 
 import time
 from game_map import GameMap

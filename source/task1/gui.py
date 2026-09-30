@@ -1,14 +1,5 @@
 # gui.py
-# Thanh vien A phu trach
-# Giao dien game Sokoban bang pygame (Req 5)
-#
-# Chuc nang yeu cau:
-# 1. Chon thuat toan: UCS hoac A*
-# 2. Hien thi so buoc (number of actions) tren UI
-# 3. Space: pause/resume
-# 4. -> (Right): tien 1 buoc
-# 5. <- (Left): lui 1 buoc
-# 6. OOP
+# Giao dien do hoa game Sokoban su dung Pygame
 
 import pygame
 import sys

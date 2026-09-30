@@ -1,7 +1,5 @@
 # experiment.py
-# Thanh vien B phu trach - Req 3
-# So sanh do phuc tap thoi gian (time) va khong gian (space) giua UCS va A*
-# Tuan thu OOP model, tai su dung GameMap, State, Solver, HeuristicCalculator
+# So sanh do phuc tap thoi gian va khong gian giua UCS va A*
 
 import os
 import sys
@@ -38,7 +36,7 @@ def run_experiments():
     results = []
 
     print("=" * 80)
-    print("THI NGHIEM SO SANH HIEU SUAT UCS VS A* (Requirement 3)")
+    print("THI NGHIEM SO SANH HIEU SUAT UCS VS A*")
     print("=" * 80)
 
     for map_name, filepath, num_boxes in maps:

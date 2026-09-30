@@ -1,12 +1,7 @@
 # agent_algorithm.py
-# Thanh vien A phu trach thuat toan (Req 7)
-# Thanh vien C tich hop vao game (Req 8)
-#
-# THUẬT TOÁN ĐƯỢC THIẾT KẾ THEO ĐÚNG 2 MÃ GIẢ BÀI GIẢNG TDTU:
-# 1. Breadth-First Search (Slide 6): Tim duong ngan nhat den vi tri day hop (_bfs_path)
-# 2. Alpha-Beta Pruning (Slide 24): Danh gia nuoc di doi khang giua 2 Agent (alpha_beta_search)
-#
-# Gioi han: Thoi gian ra quyet dinh luon <= 1000ms (thuc te < 1ms)
+# Thuat toan ra quyet dinh cho Agent thi dau trong Sokoban
+# Ket hop Breadth-First Search (tim duong) va Alpha-Beta Pruning (danh gia doi khang).
+# Gioi han thoi gian ra quyet dinh <= 1000ms.
 
 from collections import deque
 import math
@@ -29,8 +24,8 @@ def direction_name(dr, dc):
 
 class Agent:
     """
-    Agent thi dau trong che do competitive (Req 7 & Req 8).
-    Ket hop Alpha-Beta Pruning (Slide 24) va BFS Pathfinding (Slide 6).
+    Agent thi dau trong che do competitive.
+    Ket hop Alpha-Beta Pruning va BFS Pathfinding.
     """
 
     def __init__(self, agent_id=1):
@@ -57,7 +52,7 @@ class Agent:
         opp_boxes_on_goal = [b for b in boxes if b in goals and ownership.get(b) == opp_id]
 
         # ----------------------------------------------------
-        # CHIEN LUOC 1: CUOP HOP CUA DOI THU (Req 6)
+        # CHIEN LUOC 1: CUOP HOP CUA DOI THU
         # ----------------------------------------------------
         if opp_boxes_on_goal:
             min_opp_dist = min(abs(my_pos[0] - b[0]) + abs(my_pos[1] - b[1]) for b in opp_boxes_on_goal)
@@ -139,7 +134,7 @@ class Agent:
                         return path[0]
 
         # ----------------------------------------------------
-        # CHIEN LUOC 3: ALPHA-BETA SEARCH KHI CAN PHAN XA GAN (Slide 24)
+        # CHIEN LUOC 3: ALPHA-BETA SEARCH KHI CAN PHAN XA GAN
         # ----------------------------------------------------
         if time.time() - start_time < 0.8:
             action_ab = alpha_beta_search(game_state, self.agent_id, depth=2)
@@ -150,11 +145,11 @@ class Agent:
         return "Stay"
 
     # ========================================================
-    # BREADTH-FIRST SEARCH THEO DUNG MA GIA SLIDE (TRANG 6)
+    # BREADTH-FIRST SEARCH
     # ========================================================
     def _bfs_path(self, start, target, walls, avoid):
         """
-        Dua tren ma gia BREADTH-FIRST-SEARCH (Slide 6):
+        Dua tren ma gia BREADTH-FIRST-SEARCH:
         - node <- a node with STATE = start, PATH-COST = 0
         - if problem.GOAL-TEST(node.STATE) then return SOLUTION(node)
         - frontier <- a FIFO queue with node as the only element
@@ -201,7 +196,7 @@ class Agent:
 
 
 # ============================================================
-# ALPHA-BETA PRUNING THEO DUNG MA GIA SLIDE (TRANG 24)
+# ALPHA-BETA PRUNING
 # ============================================================
 
 def alpha_beta_search(game_state, my_id=1, depth=2):

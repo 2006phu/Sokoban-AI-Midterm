@@ -1,5 +1,5 @@
-# state.py cho task1_competitive
-# Quan ly trang thai cuoc thi dau 2 agent (Req 6)
+# state.py
+# Quan ly trang thai cuoc thi dau 2 agent
 
 MOVE_VECTORS = {
     "North": (-1, 0),
@@ -62,7 +62,7 @@ class CompetitiveState:
 
     def resolve_step(self, action1, action2, game_map):
         """
-        Thuc hien hanh dong dong thoi cua ca 2 agent va giai quyet xung dot (Req 6).
+        Thuc hien hanh dong dong thoi cua ca 2 agent va giai quyet xung dot.
 
         Quy tac giai quyet xung dot:
         1. Hai agent cung di vao mot o -> Ca hai dung yen.
