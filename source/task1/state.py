@@ -83,8 +83,8 @@ class State:
             nr, nc = ar + dr, ac + dc
             next_pos = (nr, nc)
 
-            # Kiem tra tuong
-            if game_map.is_wall(next_pos):
+            # Kiem tra o ke tiep co hop le va khong phai tuong khong
+            if not game_map.is_free(next_pos):
                 continue
 
             if next_pos in self.boxes:
@@ -92,8 +92,8 @@ class State:
                 box_nr, box_nc = nr + dr, nc + dc
                 box_next = (box_nr, box_nc)
 
-                if game_map.is_wall(box_next) or box_next in self.boxes:
-                    continue    # Khong the day box
+                if not game_map.is_free(box_next) or box_next in self.boxes:
+                    continue    # Khong the day box ra ngoai ban do hoac vao o bi chan
 
                 # Day box: box di chuyen, agent vao cho box cu
                 new_boxes = (self.boxes - {next_pos}) | {box_next}

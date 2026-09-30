@@ -108,10 +108,11 @@ class GameGUI:
         )
         self.clock = pygame.time.Clock()
 
-        # Font chu
-        self.font_big = pygame.font.SysFont("Consolas", 22, bold=True)
-        self.font_med = pygame.font.SysFont("Consolas", 17)
-        self.font_sm  = pygame.font.SysFont("Consolas", 14)
+        # Font chu (tuong thich ca Windows va macOS Ventura)
+        font_names = "consolas,menlo,monaco,dejavusans,couriernew,arial"
+        self.font_big = pygame.font.SysFont(font_names, 22, bold=True)
+        self.font_med = pygame.font.SysFont(font_names, 17)
+        self.font_sm  = pygame.font.SysFont(font_names, 14)
 
     # ========================================================
     # VONG LAP CHINH
