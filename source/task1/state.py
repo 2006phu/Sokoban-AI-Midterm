@@ -2,6 +2,7 @@
 # Thanh vien A phu trach
 # Class quan ly trang thai game Sokoban
 
+
 class State:
     """
     Dai dien cho 1 trang thai trong game Sokoban.
@@ -14,6 +15,8 @@ class State:
         - frozenset la immutable (khong thay doi duoc)
         - frozenset la hashable -> dung duoc trong set() va dict()
         - Can thiet de kiem tra state da xet chua (EXPLORED set)
+
+    Tuong ung voi khai niem node.STATE trong ma gia slide.
 
     Attributes:
         agent_pos:  tuple (row, col) vi tri agent
@@ -29,12 +32,13 @@ class State:
             boxes: co the la set, list, hoac frozenset -> chuyen thanh frozenset
         """
         self.agent_pos = agent_pos
-        self.boxes = frozenset(boxes)
+        self.boxes = frozenset(boxes) if not isinstance(boxes, frozenset) else boxes
 
     def is_goal(self, goals):
         """
         Kiem tra trang thai hien tai co phai goal state khong.
 
+        Tuong ung: problem.GOAL-TEST(node.STATE) trong ma gia.
         Goal state: TAT CA cac vi tri goal deu co box dung tren.
 
         Args:
@@ -42,25 +46,23 @@ class State:
 
         Returns:
             True neu tat ca goals deu co box
-
-        Goi y: Kiem tra goals.issubset(self.boxes)
-        hoac goals la tap con cua self.boxes
         """
-        # TODO: Kiem tra moi goal co box khong
-        pass
+        return goals.issubset(self.boxes)
 
     def get_successors(self, game_map):
         """
         Sinh ra tat ca trang thai ke (successor states).
+
+        Tuong ung: problem.ACTIONS(node.STATE) + CHILD-NODE trong ma gia.
 
         Logic:
         Voi moi huong (North, South, East, West):
             1. Tinh vi tri moi cua agent (next_pos)
             2. Neu next_pos la tuong -> bo qua
             3. Neu next_pos co box:
-                a. Tinh vi tri phia sau box (box_next_pos) theo cung huong
-                b. Neu box_next_pos la tuong hoac co box khac -> bo qua
-                c. Neu box_next_pos trong -> tao state moi (agent o next_pos, box di chuyen)
+               a. Tinh vi tri phia sau box (box_next_pos) theo cung huong
+               b. Neu box_next_pos la tuong hoac co box khac -> bo qua
+               c. Neu box_next_pos trong -> tao state moi (agent o next_pos, box di chuyen)
             4. Neu next_pos trong -> tao state moi (agent o next_pos, boxes giu nguyen)
 
         Returns:
@@ -75,33 +77,52 @@ class State:
             "West": (0, -1)
         }
 
-        # TODO: Voi moi huong, kiem tra va tao state moi
-        # Buoc 1: Tinh next_pos = (agent_row + dr, agent_col + dc)
-        # Buoc 2: Kiem tra next_pos co phai tuong khong
-        # Buoc 3: Kiem tra next_pos co box khong
-        # Buoc 4: Neu co box, kiem tra o phia sau box
-        # Buoc 5: Tao State moi va them vao successors
+        ar, ac = self.agent_pos
+
+        for action, (dr, dc) in directions.items():
+            nr, nc = ar + dr, ac + dc
+            next_pos = (nr, nc)
+
+            # Kiem tra tuong
+            if game_map.is_wall(next_pos):
+                continue
+
+            if next_pos in self.boxes:
+                # Co box phia truoc -> kiem tra o sau box
+                box_nr, box_nc = nr + dr, nc + dc
+                box_next = (box_nr, box_nc)
+
+                if game_map.is_wall(box_next) or box_next in self.boxes:
+                    continue    # Khong the day box
+
+                # Day box: box di chuyen, agent vao cho box cu
+                new_boxes = (self.boxes - {next_pos}) | {box_next}
+                new_state = State(next_pos, new_boxes)
+                successors.append((action, new_state, 1))
+
+            else:
+                # O trong: agent di chuyen binh thuong
+                new_state = State(next_pos, self.boxes)
+                successors.append((action, new_state, 1))
 
         return successors
 
     def __eq__(self, other):
         """Hai state bang nhau khi agent_pos va boxes giong nhau."""
-        # TODO: So sanh self va other
-        pass
+        if not isinstance(other, State):
+            return False
+        return self.agent_pos == other.agent_pos and self.boxes == other.boxes
 
     def __hash__(self):
         """
         Hash cua state de dung trong set va dict.
-
-        Goi y: return hash((self.agent_pos, self.boxes))
+        Can thiet cho explored set trong UCS/A*.
         """
-        # TODO: Tra ve hash value
-        pass
+        return hash((self.agent_pos, self.boxes))
 
     def __lt__(self, other):
-        """
-        De so sanh trong priority queue khi 2 state co cung f(n).
-        Co the so sanh tuy y, vd theo agent_pos.
-        """
-        # TODO: return True/False tuy y
-        pass
+        """De so sanh trong priority queue khi 2 state co cung f(n)."""
+        return self.agent_pos < other.agent_pos
+
+    def __repr__(self):
+        return f"State(agent={self.agent_pos}, boxes={set(self.boxes)})"
