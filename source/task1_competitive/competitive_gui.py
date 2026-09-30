@@ -166,7 +166,10 @@ class CompetitiveGUI:
             "opponent_boxes_on_goal": s2,
             "goals": goals,
             "walls": self.game_map.walls,
-            "steps_remaining": steps_left
+            "steps_remaining": steps_left,
+            "box_ownership": dict(self.state.box_ownership),
+            "my_id": 1,
+            "opponent_id": 2,
         }
 
         env_a2 = {
@@ -177,7 +180,10 @@ class CompetitiveGUI:
             "opponent_boxes_on_goal": s1,
             "goals": goals,
             "walls": self.game_map.walls,
-            "steps_remaining": steps_left
+            "steps_remaining": steps_left,
+            "box_ownership": dict(self.state.box_ownership),
+            "my_id": 2,
+            "opponent_id": 1,
         }
 
         # Ca hai agent hanh dong dong thoi
