@@ -36,15 +36,21 @@ def run_experiments():
     results = []
 
     print("=" * 80)
-    print("THI NGHIEM SO SANH HIEU SUAT UCS VS A*")
+    print("EMPIRICAL EVALUATION: UCS VS A* PERFORMANCE")
     print("=" * 80)
+
+    # Warm-up heuristic to eliminate dynamic library initialization latency
+    if os.path.exists(maps[0][1]):
+        _gm = GameMap(maps[0][1])
+        _st = State(_gm.agent_pos, _gm.boxes)
+        calculate_heuristic(_st, _gm)
 
     for map_name, filepath, num_boxes in maps:
         if not os.path.exists(filepath):
-            print(f"Bỏ qua '{map_name}': Không tìm thấy file {filepath}")
+            print(f"Skipping '{map_name}': File not found: {filepath}")
             continue
 
-        print(f"\n[+] Đang chạy thử nghiệm trên bản đồ: {map_name} ({num_boxes} boxes)...")
+        print(f"\n[+] Running benchmark on map: {map_name} ({num_boxes} boxes)...")
         game_map = GameMap(filepath)
         init_state = State(game_map.agent_pos, game_map.boxes)
 
@@ -85,13 +91,13 @@ def run_experiments():
         results.append((map_name, num_boxes, ucs_data, astar_data))
 
     # ========================================================
-    # IN KET QUA BANG SO SANH (Phuc vu bao cao va slide)
+    # PRINT RESULTS TABLE (For reports and presentation slides)
     # ========================================================
     print("\n" + "=" * 90)
-    print("BANG KET QUA THI NGHIEM DO PHUC TAP THOI GIAN VA KHONG GIAN")
+    print("EMPIRICAL EVALUATION: TIME AND SPACE COMPLEXITY")
     print("=" * 90)
 
-    header = f"{'Ban do':<10} | {'Thuat toan':<10} | {'Thoi gian (s)':<15} | {'Nodes Expanded':<16} | {'Max Frontier':<15} | {'Cost':<6}"
+    header = f"{'Map':<10} | {'Algorithm':<10} | {'Time (s)':<15} | {'Nodes Expanded':<16} | {'Max Frontier':<15} | {'Cost':<6}"
     print(header)
     print("-" * len(header))
 
@@ -118,13 +124,13 @@ def run_experiments():
         astar_cost_str = f"{astar['cost']}"
         print(f"{'':<10} | {'A*':<10} | {astar_time_str:<15} | {astar_nodes_str:<16} | {astar['frontier']:<15} | {astar_cost_str:<6}")
 
-        # So sanh
+        # Comparison
         if ucs["cost"] is not None and astar["cost"] is not None:
-            cost_match = "PASS (Cung chi phi toi uu)" if ucs["cost"] == astar["cost"] else "FAIL"
+            cost_match = "PASS (Identical optimal cost)" if ucs["cost"] == astar["cost"] else "FAIL"
             speedup = (ucs["nodes"] / astar["nodes"]) if astar["nodes"] > 0 else 1
-            print(f"{'':<10} | {'Danh gia':<10} | Cost: {cost_match} | A* giam {speedup:.1f}x so node so voi UCS")
+            print(f"{'':<10} | {'Evaluation':<10} | Cost: {cost_match} | A* prunes {speedup:.1f}x nodes vs UCS")
         elif ucs["timed_out"]:
-            print(f"{'':<10} | {'Danh gia':<10} | UCS bung no khong gian trang thai; A* giai quyet tot nho Heuristic.")
+            print(f"{'':<10} | {'Evaluation':<10} | UCS state space explosion; A* solves efficiently via heuristic.")
 
         print("-" * len(header))
 

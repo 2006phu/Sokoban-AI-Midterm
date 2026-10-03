@@ -37,7 +37,7 @@ COLOR_WINNER_A1   = (40, 200, 255)
 COLOR_WINNER_A2   = (255, 100, 60)
 COLOR_DRAW        = (255, 215, 0)
 
-CELL_SIZE         = 56
+CELL_SIZE         = 50
 PANEL_HEIGHT      = 130
 FPS               = 60
 AUTO_STEP_DELAY   = 450  # ms moi buoc tu dong
